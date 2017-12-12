@@ -128,7 +128,7 @@ $(document).ready(function () {
       // console.log(data.data.assignments[1])
       $.each(data.data.assignments, function (i, field) {
         // input resources/projects down the left hand column
-        // console.log('field is ' + field.resourceID)
+        console.log('Project is ' + field.projectName)
         calendarInput.fullCalendar('addResource', {
           id: field.projectName,
           // Change this in the future to use project id as name not necessarily unique
@@ -138,37 +138,37 @@ $(document).ready(function () {
         // console.log(field.assignmentWorkingPattern)
         // console.log(field.assignmentWorkingPattern[0])
         // var datesArray = returnArrayOfDates(field.startDate,field.assignmentWorkingPattern)
+        var event = {}
+        console.log('assignment id is ' + field.assignmentID)
 
+        $.each(field.events, function (index, eventField) {
+          console.log('event start is: ' + eventField.startDate + ', event days is: ' + eventField.days + ', event daily hours is: ' + eventField.dailyHours)
 
+          var event = {
+            id: field.assignmentID,
+            resourceId: field.projectName,
+            start: eventField.startDate,
+            end: moment(eventField.startDate).add(eventField.days, 'days'),
+            scheduledHoursDaily: eventField.dailyHours,
+            title: field.name,
+            status: field.status,
+            color: getStatusColor(field.status),
+            scheduledHours: field.scheduledHours
+          }
+
+          calendarInput.fullCalendar('renderEvent', event, true)
+        })
 
         // for length of working pattern,
         // currentDate is startDate + i*2 days,
         // dailyHours = returnHours from date
         var eventScheduledHours = 0
         var eventScheduledDate = moment()
-        var event = {}
-        console.log('console.log = ' + i)
-        for (var index = 0; index < field.assignmentWorkingPattern.length; index = index + 2) {
-          eventScheduledHours = field.assignmentWorkingPattern[index]
-          console.log('number/scheduledHours at ' + i + ' is ' + eventScheduledHours)
-          eventScheduledDate = moment(field.startDate, 'DD-MM-YYYY').add(index / 2, 'days')
-          console.log('date of new smaller event is ' + moment(eventScheduledDate).format('DD-MM-YYYY'))
-          if (eventScheduledHours !== 0) {
-            event = {
-              id: field.assignmentID,
-              resourceId: field.projectName,
-              start: eventScheduledDate,
-              end: moment(eventScheduledDate, 'DD-MM-YYYY').add(1, 'days'),
-              title: field.name,
-              status: field.status,
-              color: getStatusColor(field.status),
-              scheduledHours: eventScheduledHours
-            }
-            calendarInput.fullCalendar('renderEvent', event, true)
-          } else {
-            event = {}
-          }
-        }
+
+        // console.log('console.log = ' + i)
+
+
+
         // end test
         // var event = {
         //   id: field.assignmentID,
