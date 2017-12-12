@@ -88,13 +88,15 @@ $(document).ready(function () {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
         // end date needs 1 day subtracting as through moment date formats it would otherwise be plotted to midnight of the end date and not render.
         tooltip = '<div class="tooltiptopicevent">' +
-          'Unique event id = ' + data.id + '</br>' +
+          'Assignment id = ' + data.id + '</br>' +
           'Assignment Name' + ': ' + data.title + '</br>' +
           'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
           'End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '</br>' +
           'Assignment Status is: ' + data.status + '</br>' +
           'Project Region: ' + data.projectLocation + '</br>' +
-          'scheduled Hours: ' + data.scheduledHours +
+          'Project Id is: ' + data.resourceId + '</br>' +
+          'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
+          'Daily Scheduled Hours: ' + data.scheduledHoursDaily +
           ' </div>'
         // 'Delivery Location: ' + data.deliveryLocation + '</br>' +;
         $('body').append(tooltip)
@@ -143,17 +145,21 @@ $(document).ready(function () {
 
         $.each(field.events, function (index, eventField) {
           console.log('event start is: ' + eventField.startDate + ', event days is: ' + eventField.days + ', event daily hours is: ' + eventField.dailyHours)
-
+          var formattedStart = moment(eventField.startDate).format('YYYY-MM-DD')
+          var formattedAssignmentEnd = moment(field.endDate).format('YYYY-MM-DD')
           var event = {
+            start: formattedStart,
+            assignmentEnd: field.endDate,
+            scheduledHours: field.scheduledHours,
             id: field.assignmentID,
             resourceId: field.projectName,
-            start: eventField.startDate,
-            end: moment(eventField.startDate).add(eventField.days, 'days'),
+            end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
             scheduledHoursDaily: eventField.dailyHours,
             title: field.name,
             status: field.status,
-            color: getStatusColor(field.status),
-            scheduledHours: field.scheduledHours
+            projectCode: field.opaProjectCode,
+            location: field.deliveryLocation,
+            color: getStatusColor(field.status)
           }
 
           calendarInput.fullCalendar('renderEvent', event, true)
@@ -162,8 +168,8 @@ $(document).ready(function () {
         // for length of working pattern,
         // currentDate is startDate + i*2 days,
         // dailyHours = returnHours from date
-        var eventScheduledHours = 0
-        var eventScheduledDate = moment()
+        // var eventScheduledHours = 0
+        // var eventScheduledDate = moment()
 
         // console.log('console.log = ' + i)
 
