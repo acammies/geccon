@@ -8,8 +8,8 @@ $(document).ready(function () {
   // initialiseCalendar frame and event mouseover references
   function initialiseCalendar () {
     $('#calendar').fullCalendar({
-      // now: moment(),
-      now: moment(), // current date set to false date for testing purposes
+      // now: moment(), // current date set to false date for testing purposes
+      now: '2017-06-05',
       editable: false, // draggable events disabled as read only
       // aspectRatio: 1.8,
       height: 'auto',
