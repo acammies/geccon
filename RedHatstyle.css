@@ -1,0 +1,190 @@
+body {
+  background-color: ##fafafa;
+  margin: 0;
+  padding: 0;
+  font-family: "Overpass",sans-serif;
+  font-size: 14px;
+}
+
+
+.btn-primary {
+  background-color: #007a87;
+}
+
+.btn-primary:hover {
+  background-color: #004153;
+  border-color: #007a87;
+}
+
+
+#resourceNameList {
+  color: '#ffffff';
+}
+
+#calendar {
+  max-width: 100`%;
+  /*margin: 5% auto;*/
+  /*margin-top: 5% auto;*/
+}
+#footer {
+  max-width: 95%;
+  margin: auto;
+  text-align:center;
+}
+
+.tooltiptopicevent{
+  width:auto;
+  height:auto;
+  background:#ffffff;
+  position:absolute;
+  z-index:10001;
+  padding:10px 10px 10px 10px ;
+  line-height: 200%;
+
+  border-style: groove;
+
+}
+
+.tooltip{
+  display: inline;
+}
+
+.tooltip:hover:after{
+  background: rgba(0,0,0,.7);
+  border-radius: 5px;
+  color: #000;
+  padding: 5px 15px;
+  margin-left: 10px;
+  z-index: 99;
+  width: 220px;
+}
+
+.fc table {
+	width: 100%;
+	box-sizing: border-box; /* fix scrollbar issue in firefox */
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background-color: #FFFFFF;
+	font-size: 1em; /* normalize cross-browser */
+}
+
+.fc-event .fc-bg { /* the generic .fc-bg already does position */
+	z-index: 1;
+	background: #fff;
+	opacity: 0; /*change this for event color */
+}
+
+.topHeader {
+  margin-top: 0px;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  background: #004153;
+  color: #fff;
+  height: 100px;
+  transition: background .3s ease-in-out;
+}
+
+.calendarContainer{
+  margin-top: 0px;
+}
+
+.navbar-header{
+  background: #007a87;
+  color: #A3DBE8;
+  text-align: center;
+  display:inline-block;
+}
+
+.navbar-brand{
+  color: #A3DBE8;
+  font-size: 30px;
+  margin-left: 0;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #FFFFFF;
+}
+
+  /* Style for the searchbar in dropdown to filter people*/
+  #myInput {
+    padding: 20px;
+    margin-top: -6px;
+    border: 0;
+    border-radius: 0;
+    background: #f1f1f1;
+  }
+
+.fc button {
+    color: #fff;
+
+    border-color: #00636e;
+}
+
+.fc-state-default {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  background-image: none;
+  background-color: #007a87;
+}
+
+.fc-state-down, .fc-state-active {
+    background-color: #cccccc;
+    background-image: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    background-color: #004153;
+}
+
+.navbar-inverse{
+    background-color: #004153;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #4E7A86;
+}
+
+/* basic positioning */
+.legend { list-style: none; }
+.legend li { float: left; margin-right: 10px; }
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+/* your colors */
+.legend .confirmed { background-color: #92d400; }
+.legend .tentative { background-color: #f0ab00; }
+.legend .closed { background-color: #cc0000; }
+.legend .unassigned { background-color: #000000; }
+.legend .schedule { border-color: #ff0000; }
+
+
+.triangle-bottomright {
+	width: 0;
+	height: 0;
+	border-bottom: 50px solid rgb(0,122,135);
+	border-left: 50px solid rgb(0,65,83);
+  float: left;
+}
+
+.triangle-topright {
+	width: 0;
+	height: 0;
+	border-left: 50px solid rgb(0,122,135);
+	border-bottom: 50px solid rgb(0,65,83);
+  float: right;
+}
+
+
+/*@media (min-width: 768px)
+navbar.less:194
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: 0;
+}*/
+
+
+#pop {
+  padding: 0px 0px;
+}
+
+#example{
+  position: relative;
+}

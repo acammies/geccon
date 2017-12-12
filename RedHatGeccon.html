@@ -1,0 +1,96 @@
+<!DOCTYPE  html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Red Hat GECCon </title>
+      <!-- Bootstrap CDN minified css -->
+      <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/> -->
+      <!-- Fullcalendar css stylesheets -->
+      <link href='../wej-consultant-calendar/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    	<link href='../wej-consultant-calendar/fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    	<link href='../wej-consultant-calendar/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet' />
+      <!-- Google API fonts -->
+      <link href="https://fonts.googleapis.com/icon?family=Overpass" rel="stylesheet"/>
+      <!-- RedHat css style guide -->
+      <link href='./RedHatstyle.css' rel='stylesheet' />
+
+  </head>
+  <body>
+
+
+    <!-- Navigation bar, still needs some work with regards to when elements disappear depending on device size.-->
+  	<div class="container-fluid">
+  		<div class="row">
+  			<nav class="navbar navbar-inverse navbar">
+  				<div class="container-fluid">
+  					<div class="navbar-header">
+  						<div class="hidden-xs triangle-bottomright"></div>
+  						<a class="navbar-brand" href="#">RED HAT GECCON </a>
+  						<div class="hidden-xs triangle-topright"></div>
+  					</div>
+  					<div class="nav navbar-nav navbar-right">
+  						<div class="dropdown" id="resourceNameList">
+  							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Consultant<span class="caret"></span></button>
+  							<ul class="dropdown-menu" id="resourceListBox">
+  								<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  								<!-- <li id="HTMLtestID" onclick="linkClicked($(this).index())"><a href="#">HTML</a></li> -->
+  							</ul>
+  						</div>
+  					</div>
+  				</div>
+  			</nav>
+  		</div>
+  	</div>
+
+
+    <!-- Container for calendar div element and status legend underneath.  -->
+
+    <div class="calendarContainer">
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <!-- <div class="visible-xs-block"></br></br></br></br></br></div> -->
+          <div id='calendar'></div>
+        </div>
+      </br>
+        <ul class="legend">
+          <li><span class="confirmed"></span> Confirmed</li>
+          <li><span class="tentative"></span> Tentative</li>
+          <li><span class="closed"></span> Closed</li>
+          <li><span class="unassigned"></span> Unassigned</li>
+          <li><span class="schedule"></span> Scheduled hours = 0 </li>
+        </ul>
+      </br>
+      </div>
+    </div>
+
+    <!-- Container footer containing information about git repositories, trello boards, disclaimers, logos etc.-->
+  	<div class="container-fluid">
+  		<div id='footer'>
+  			<p>GECCON (Good  Enough Calender for CONsultants). Contribute here: <a href="github project link tba">Consultant Calendar GitHub Repository</a> Trello: <a href="https://trello.com/b/F2nthFnS/wej-consultant-calendar">Requests, bugs, backlog all here.</a></p>
+  			<p>If you feel like some of the information on here is incorrect please get in touch with your PMs or SDMs. PSA Generates schedules in a strange way so we can't guarantee everything will be correct.</p>
+  			<blockquote>
+  				<p>"Don't let perfect get in the way of good enough."</p>
+  				<footer>Casey Neistat</footer>
+  			</blockquote>
+  			<img src="https://www.openshift.com/sites/default/files/images/powered-transparent-black.png" alt="Powered By Openshift Logo">
+
+  		</div>
+  	</div>
+
+    <!-- Jquery and Bootstrap 4 javascript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- fullcalendar javascript files and moment.js for date objects -->
+    <script src='../wej-consultant-calendar/fullcalendar/lib/moment.min.js'></script>
+  	<script src='../wej-consultant-calendar/fullcalendar/fullcalendar.js'></script>
+  	<script src='../wej-consultant-calendar/fullcalendar-scheduler/scheduler.js'></script>
+    <!-- scripts for site population -->
+  	<!-- <script src='./wejCall.js'></script> -->
+    <script src='./calendarCall.js'></script>
+
+  </body>
+</html>
