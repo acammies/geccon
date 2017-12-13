@@ -2,8 +2,15 @@ $(document).ready(function () {
   // var urlLocal = 'http://localhost:8080/calendar?startDate=01-12-2017&endDate=25-12-2017'
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
   var urlTest = 'http://localhost:8080/calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
+  var urlRoot = 'http://localhost:8080/'
+  var urlResourceSearch = 'calendar?resourceId='
+  var urlDateToQuery = '&startDate=2017-06-01&endDate=2018-03-10'
+
+
   initialiseCalendar()
-  returnData(returnCurrentCalendar())
+  returnData(returnCurrentCalendar(),urlTest)
+
+  loadResourceInformation(urlRoot + 'contact')
 
   // initialiseCalendar frame and event mouseover references
   function initialiseCalendar () {
@@ -33,7 +40,7 @@ $(document).ready(function () {
         timelineFiveDays: {
           type: 'timeline',
           buttonText: '5 Day',
-          slotDuration: '06:00',
+          slotDuration: '12:00',
           duration: {
             days: 5
           }
@@ -41,7 +48,7 @@ $(document).ready(function () {
         timelineWeek: {
           type: 'timeline',
           buttonText: '7 Day',
-          slotDuration: '06:00',
+          slotDuration: '24:00',
           duration: {
             days: 7
           }
@@ -116,12 +123,12 @@ $(document).ready(function () {
     })
   }
 
-  function returnData (calendarInput) {
+  function returnData (calendarInput, urlInput) {
     // console.log(urlLocal)
     $.ajax({
       // url: urlLocal
       // url: urlNewerTestData
-      url: urlTest
+      url: urlInput
     }).done(function (data) {
       // console.log('payload is ' + data)
       // console.log(data.data)
@@ -246,6 +253,57 @@ $(document).ready(function () {
       default:
         return '#ffffff'
     }
+  }
+
+  function updateEventsForNewResource (resourceIdFromList, calendarInput) {
+    // var newUrl = urlRoot + urlResourceSearch + resourceIdFromList
+    var newUrl = urlRoot + urlResourceSearch + resourceIdFromList + urlDateToQuery
+    // console.log(newUrl);
+    returnData(calendarInput, newUrl)
+  }
+
+  function loadResourceInformation (urlInput) {
+    // this is used to pull all contact names and populate the drop down list at the top. Will filter by region etc in live version or have it linked to kerberos login.
+    $.ajax({url: urlInput
+    }).done(function (data) {
+      console.log('Success')
+      $.each(data.data, function (i, field) {
+        // console.log(field.id +' ' + field.firstName);
+        // var x = document.getElementById("sel1");
+        // var option = document.createElement("option");
+        var option = field.firstName + ' ' + field.lastName + ' ' + field.email
+        // x.add(option);
+        // $("#resourceNameList ul").append('<li>'+option.text+'</li>');
+        // this sets the id of the list item to resourceID, may have to append a letter on the beginning for compatability
+        $('#resourceNameList ul').append('<li onclick="linkClicked($(this).index())" id =' + field.id + '>' + '<a href="#">' + option + '</a>' + '</li>')
+        // onclick="linkClicked($(this).index())" calls link clicked function, may change this in future and probably should.
+        // also need to make it so that id has a letter appended to the front
+
+        // change this so it worls for a list. already declare the unordered list class/id
+        // id = field.id, text = option.text/
+        // then work on separate selector based on id
+      })
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+      console.log('failed')
+    })
+  };
+
+
+  $('#myInput').on('keyup', function () {
+    // function to filter the dropdown List
+    var value = $(this).val().toLowerCase()
+    $('.dropdown-menu li').filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    })
+  })
+
+  linkClicked = function (index) {
+    // returns the currently selected contractor and uses their resource id to search for all projects
+    var currentId = $('#resourceListBox li').get(index - 1).id // get index -1 is needed as the searchbar in the dropdown-menu counts as an indexed item but not in a list
+    console.log(currentId)
+    clearEvents(returnCurrentCalendar())
+    clearProjects(returnCurrentCalendar())
+    updateEventsForNewResource(currentId, returnCurrentCalendar())
   }
 
   $('.pop').popover({
