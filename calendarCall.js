@@ -4,7 +4,9 @@ $(document).ready(function () {
   var urlTest = 'http://localhost:8080/calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
   var urlRoot = 'http://localhost:8080/'
   var urlResourceSearch = 'calendar?resourceId='
-  var urlDateToQuery = '&startDate=2017-06-01&endDate=2018-03-10'
+  var queryStartDate = '2017-06-01'
+  var queryEndDate = '2018-03-10'
+  var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
 
 
   initialiseCalendar()
@@ -95,15 +97,15 @@ $(document).ready(function () {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
         // end date needs 1 day subtracting as through moment date formats it would otherwise be plotted to midnight of the end date and not render.
         tooltip = '<div class="tooltiptopicevent">' +
-          'Assignment id = ' + data.id + '</br>' +
-          'Assignment Name' + ': ' + data.title + '</br>' +
+          'Assignment Name' + ': ' + data.title +
+          '. Assignment id = ' + data.id + '</br>' +
           'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
           'End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '</br>' +
+          'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
+          'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '</br>' +
           'Assignment Status is: ' + data.status + '</br>' +
           'Project Region: ' + data.projectLocation + '</br>' +
-          'Project Id is: ' + data.resourceId + '</br>' +
-          'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
-          'Daily Scheduled Hours: ' + data.scheduledHoursDaily +
+          'Project Id/Name is: ' + data.resourceId + '</br>' +
           ' </div>'
         // 'Delivery Location: ' + data.deliveryLocation + '</br>' +;
         $('body').append(tooltip)
@@ -137,7 +139,7 @@ $(document).ready(function () {
       // console.log(data.data.assignments[1])
       $.each(data.data.assignments, function (i, field) {
         // input resources/projects down the left hand column
-        console.log('Project is ' + field.projectName)
+        // console.log('Project is ' + field.projectName)
         calendarInput.fullCalendar('addResource', {
           id: field.projectName,
           // Change this in the future to use project id as name not necessarily unique
@@ -148,10 +150,10 @@ $(document).ready(function () {
         // console.log(field.assignmentWorkingPattern[0])
         // var datesArray = returnArrayOfDates(field.startDate,field.assignmentWorkingPattern)
         var event = {}
-        console.log('assignment id is ' + field.assignmentID)
+        // console.log('assignment id is ' + field.assignmentID)
 
         $.each(field.events, function (index, eventField) {
-          console.log('event start is: ' + eventField.startDate + ', event days is: ' + eventField.days + ', event daily hours is: ' + eventField.dailyHours)
+          // console.log('event start is: ' + eventField.startDate + ', event days is: ' + eventField.days + ', event daily hours is: ' + eventField.dailyHours)
           var formattedStart = moment(eventField.startDate).format('YYYY-MM-DD')
           var formattedAssignmentEnd = moment(field.endDate).format('YYYY-MM-DD')
           var event = {
@@ -266,7 +268,7 @@ $(document).ready(function () {
     // this is used to pull all contact names and populate the drop down list at the top. Will filter by region etc in live version or have it linked to kerberos login.
     $.ajax({url: urlInput
     }).done(function (data) {
-      console.log('Success')
+      // console.log('Success')
       $.each(data.data, function (i, field) {
         // console.log(field.id +' ' + field.firstName);
         // var x = document.getElementById("sel1");
