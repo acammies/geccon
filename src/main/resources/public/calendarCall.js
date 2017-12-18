@@ -1,16 +1,18 @@
+/* globals $:false */
+
 $(document).ready(function () {
-  // var urlLocal = 'http://localhost:8080/calendar?startDate=01-12-2017&endDate=25-12-2017'
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
-  var urlTest = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
-  var urlRoot = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/'
+  var urlRoot = 'http://localhost:8080/'
+  // var urlRoot = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/'
+  var urlTestEnd = 'calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
+  var urlTest = urlRoot + urlTestEnd
   var urlResourceSearch = 'calendar?resourceId='
   var queryStartDate = '2017-06-01'
   var queryEndDate = '2018-03-10'
   var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
 
-
   initialiseCalendar()
-  returnData(returnCurrentCalendar(),urlTest)
+  returnData(returnCurrentCalendar(), urlTest)
 
   loadResourceInformation(urlRoot + 'contact')
 
@@ -92,6 +94,21 @@ $(document).ready(function () {
         // //Statically generated events for testing purposes
         // { id: 'g', resourceId: 'BP', start: moment(), end: '2017-12-29', title: 'BP 3 Day checkup', status: 'Tentative', color: getStatusColor('Confirmed'), deliveryLocation: 'Canary Wharf' }
       ],
+
+      eventClick: function (data, event, view) {
+        // alert('Event: ' + data.title)
+        // alert('Coordinates: ' + event.pageX + ',' + event.pageY)
+        // alert('View: ' + view.name)
+        alert('Assignment Name' + ': ' + data.title + '\n' +
+        'Assignment id = ' + data.id + '\n' +
+        'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '\n' +
+        'End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '\n' +
+        'Total Assignment Scheduled Hours: ' + data.scheduledHours + '\n' +
+        'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '\n' +
+        'Assignment Status is: ' + data.status + '\n' +
+        'Project Region: ' + data.projectLocation + '\n' +
+        'Project Id/Name is: ' + data.resourceId + '\n')
+      },
 
       eventMouseover: function (data, event, view) {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
@@ -181,8 +198,6 @@ $(document).ready(function () {
         // var eventScheduledDate = moment()
 
         // console.log('console.log = ' + i)
-
-
 
         // end test
         // var event = {
@@ -290,7 +305,6 @@ $(document).ready(function () {
     })
   };
 
-
   $('#myInput').on('keyup', function () {
     // function to filter the dropdown List
     var value = $(this).val().toLowerCase()
@@ -328,6 +342,4 @@ $(document).ready(function () {
       }
     }, 300)
   })
-
-
 })
