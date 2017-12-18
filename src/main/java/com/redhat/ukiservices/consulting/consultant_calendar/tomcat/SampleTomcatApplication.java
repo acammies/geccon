@@ -21,6 +21,7 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class SampleTomcatApplication {
 
 	private static Log logger = LogFactory.getLog(SampleTomcatApplication.class);
+	
+	@Value("${sf-api.root.url}")
+	private String sfRootAPI;
+	
+	@Value("${sf-api.contact.url}")
+	private String sfContact;
+	
+	@Value("${sf-api.calendar.url}")
+	private String sfCalendar;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SampleTomcatApplication.class, args);
@@ -48,6 +58,7 @@ public class SampleTomcatApplication {
                 // forward requests to /admin and /user to their index.html
                 registry.addViewController("/").setViewName(
                         "forward:/RedHatGeccon.html");
+               
                
             }
         };
