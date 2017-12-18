@@ -1,8 +1,8 @@
 $(document).ready(function () {
   // var urlLocal = 'http://localhost:8080/calendar?startDate=01-12-2017&endDate=25-12-2017'
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
-  var urlTest = 'http://localhost:8080/calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
-  var urlRoot = 'http://localhost:8080/'
+  var urlTest = 'http://localhost:8090/calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
+  var urlRoot = 'http://localhost:8090/'
   var urlResourceSearch = 'calendar?resourceId='
   var queryStartDate = '2017-06-01'
   var queryEndDate = '2018-03-10'
