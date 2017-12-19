@@ -3,19 +3,21 @@
 $(document).ready(function () {
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
   var urlRoot = '/'
-  var urlLocalRoot = 'http://localhost:8080/'
+  var urlLocalRoot = 'http://localhost:8090/'
   // var urlRoot = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/'
-  var urlTestEnd = 'calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
+  var urlTestEnd = 'calendar?resourceId=0036300000HnIenAAF'
   var urlTest = urlRoot + urlTestEnd
   var urlLocalTest = urlLocalRoot + urlTestEnd
   var urlResourceSearch = 'calendar?resourceId='
-  var queryStartDate = '2017-06-01'
-  var queryEndDate = '2018-03-10'
-  var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
+  // var queryStartDate = '2017-06-01'
+  // var queryEndDate = '2018-03-10'
+  // var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
+
 
 
   initialiseCalendar()
-  returnData(returnCurrentCalendar(), urlTest)
+  // returnData(returnCurrentCalendar(), urlTest)
+  returnData(returnCurrentCalendar(), urlLocalTest)
 
   loadResourceInformation(urlRoot + 'contact')
 
@@ -161,7 +163,7 @@ $(document).ready(function () {
         // input resources/projects down the left hand column
         // console.log('Project is ' + field.projectName)
         calendarInput.fullCalendar('addResource', {
-          id: field.projectName,
+          id: field.projectID,
           // Change this in the future to use project id as name not necessarily unique
           title: field.projectName
         })
@@ -182,8 +184,8 @@ $(document).ready(function () {
             start: formattedStart,
             assignmentEnd: field.endDate,
             scheduledHours: field.scheduledHours,
-            id: field.assignmentID + ' ' + countEvent,
-            resourceId: field.projectName,
+            id: field.url + ' ' + countEvent,
+            resourceId: field.projectID,
             projectName: field.projectName,
             end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
             scheduledHoursDaily: eventField.dailyHours,
@@ -281,7 +283,7 @@ $(document).ready(function () {
 
   function updateEventsForNewResource (resourceIdFromList, calendarInput) {
     // var newUrl = urlRoot + urlResourceSearch + resourceIdFromList
-    var newUrl = urlRoot + urlResourceSearch + resourceIdFromList + urlDateToQuery
+    var newUrl = urlRoot + urlResourceSearch + resourceIdFromList
     // console.log(newUrl);
     returnData(calendarInput, newUrl)
   }
