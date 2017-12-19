@@ -9,11 +9,11 @@ $(document).ready(function () {
   var urlTest = urlRoot + urlTestEnd
   var urlLocalTest = urlLocalRoot + urlTestEnd
   var urlResourceSearch = 'calendar?resourceId='
+  var $modal = $('.modal')
+
   // var queryStartDate = '2017-06-01'
   // var queryEndDate = '2018-03-10'
   // var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
-
-
 
   initialiseCalendar()
   // returnData(returnCurrentCalendar(), urlTest)
@@ -103,30 +103,58 @@ $(document).ready(function () {
         // alert('Event: ' + data.title)
         // alert('Coordinates: ' + event.pageX + ',' + event.pageY)
         // alert('View: ' + view.name)
-        alert('Assignment Name' + ': ' + data.title + '\n' +
-        'Assignment id = ' + data.id + '\n' +
-        'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '\n' +
-        'End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '\n' +
-        'Total Assignment Scheduled Hours: ' + data.scheduledHours + '\n' +
-        'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '\n' +
-        'Assignment Status is: ' + data.status + '\n' +
-        'Project Region: ' + data.projectLocation + '\n' +
-        'Project Id/Name is: ' + data.resourceId + '\n')
+        $modal.on('show.bs.modal', function (e) {
+          var paragraphs = $(e.relatedTarget).data('paragraphs')
+          $(this)
+            .addClass('modal-scrollfix')
+            .find('.modal-body').html('Assignment Name' + ': ' + data.title + '</br>' +
+            'Assignment id = ' + '<a href=' + data.id + '>' + 'Assignment PSA Link ' + '</a>' + '</br>' +
+            'Assignment Status is: ' + data.status + '</br>' +
+            'Event Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
+            'Event End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '</br>' +
+            'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '</br>' +
+            'Assignment Start Date' + ': ' + data.assignmentStart + '</br>' +
+            'Assignment End Date' + ': ' + data.assignmentEnd + '</br>' +
+            'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
+            'Project Name is: ' + data.projectName + '</br>' +
+            'Project Id is: ' + data.resourceId + '</br>' +
+            'Project Region: ' + data.projectLocation + '</br>')
+            // .html('loading...')
+            // .load('https://baconipsum.com/api/?type=meat-and-filler&paras=' + paragraphs, function () {
+            //   // Use Bootstrap's built-in function to fix scrolling (to no avail)
+            //   $modal
+            //     .removeClass('modal-scrollfix')
+            //     .modal('handleUpdate')
+            // })
+        })
+        $modal.modal()
+        // alert('Assignment Name' + ': ' + data.title + '\n' +
+        // 'Assignment id = ' + data.id + '\n' +
+        // 'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '\n' +
+        // 'End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '\n' +
+        // 'Total Assignment Scheduled Hours: ' + data.scheduledHours + '\n' +
+        // 'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '\n' +
+        // 'Assignment Status is: ' + data.status + '\n' +
+        // 'Project Region: ' + data.projectLocation + '\n' +
+        // 'Project Id/Name is: ' + data.resourceId + '\n')
       },
 
       eventMouseover: function (data, event, view) {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
         // end date needs 1 day subtracting as through moment date formats it would otherwise be plotted to midnight of the end date and not render.
         var tooltip = '<div class="tooltiptopicevent">' +
-          'Assignment Name' + ': ' + data.title +
-          '. Assignment id = ' + data.id + '</br>' +
-          'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
-          'End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '</br>' +
-          'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
-          'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '</br>' +
+          'Assignment Name' + ': ' + data.title + '</br>' +
+          'Assignment id = ' + data.id + '</br>' +
           'Assignment Status is: ' + data.status + '</br>' +
+          'Event Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
+          'Event End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '</br>' +
+          'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '</br>' +
+          'Assignment Start Date' + ': ' + data.assignmentStart + '</br>' +
+          'Assignment End Date' + ': ' + data.assignmentEnd + '</br>' +
+          'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
+          'Project Name is: ' + data.projectName + '</br>' +
+          'Project Id is: ' + data.resourceId + '</br>' +
           'Project Region: ' + data.projectLocation + '</br>' +
-          'Project Id/Name is: ' + data.resourceId + '</br>' +
           ' </div>'
         // 'Delivery Location: ' + data.deliveryLocation + '</br>' +;
         $('body').append(tooltip)
@@ -182,12 +210,13 @@ $(document).ready(function () {
           var formattedAssignmentEnd = moment(field.endDate).format('YYYY-MM-DD')
           var event = {
             start: formattedStart,
+            end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
+            assignmentStart: field.startDate,
             assignmentEnd: field.endDate,
             scheduledHours: field.scheduledHours,
-            id: field.url + ' ' + countEvent,
+            id: field.url + '#' + countEvent,
             resourceId: field.projectID,
             projectName: field.projectName,
-            end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
             scheduledHoursDaily: eventField.dailyHours,
             title: field.name,
             status: field.status,
