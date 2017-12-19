@@ -2,14 +2,17 @@
 
 $(document).ready(function () {
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
-  var urlRoot = 'http://localhost:8080/'
+  var urlRoot = '/'
+  var urlLocalRoot = 'http://localhost:8080/'
   // var urlRoot = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/'
   var urlTestEnd = 'calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
   var urlTest = urlRoot + urlTestEnd
+  var urlLocalTest = urlLocalRoot + urlTestEnd
   var urlResourceSearch = 'calendar?resourceId='
   var queryStartDate = '2017-06-01'
   var queryEndDate = '2018-03-10'
   var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
+
 
   initialiseCalendar()
   returnData(returnCurrentCalendar(), urlTest)
