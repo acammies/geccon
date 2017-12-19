@@ -20,13 +20,12 @@ $(document).ready(function () {
   function initialiseCalendar () {
     $('#calendar').fullCalendar({
       // now: moment(), // current date set to false date for testing purposes
-      now: '2017-06-05',
+      now: '2017-06-05', // TODO change me to moment() as above
       editable: false, // draggable events disabled as read only
       // aspectRatio: 1.8,
       height: 'auto',
       contentHeight: 'auto',
       fixedWeekCount: false,
-      // hiddenDays: [ 6,0 ], //how to hide certain days. 0=Sunday, 6=Saturday. Filter via work calendar first. (if work day hours = 0 then hide) May be better to just not fill in these unused days?
       scrollTime: '08:00', // undo default 6am scrollTime when viewing in agenda style
       schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       header: {
@@ -113,7 +112,7 @@ $(document).ready(function () {
       eventMouseover: function (data, event, view) {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
         // end date needs 1 day subtracting as through moment date formats it would otherwise be plotted to midnight of the end date and not render.
-        tooltip = '<div class="tooltiptopicevent">' +
+        var tooltip = '<div class="tooltiptopicevent">' +
           'Assignment Name' + ': ' + data.title +
           '. Assignment id = ' + data.id + '</br>' +
           'Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
@@ -158,7 +157,7 @@ $(document).ready(function () {
         // input resources/projects down the left hand column
         // console.log('Project is ' + field.projectName)
         calendarInput.fullCalendar('addResource', {
-          id: field.projectName,
+          id: field.opaProjectCode,
           // Change this in the future to use project id as name not necessarily unique
           title: field.projectName
         })
@@ -166,7 +165,7 @@ $(document).ready(function () {
         // console.log(field.assignmentWorkingPattern)
         // console.log(field.assignmentWorkingPattern[0])
         // var datesArray = returnArrayOfDates(field.startDate,field.assignmentWorkingPattern)
-        var event = {}
+        // var event = {}
         // console.log('assignment id is ' + field.assignmentID)
 
         $.each(field.events, function (index, eventField) {
@@ -178,7 +177,8 @@ $(document).ready(function () {
             assignmentEnd: field.endDate,
             scheduledHours: field.scheduledHours,
             id: field.assignmentID,
-            resourceId: field.projectName,
+            resourceId: field.opaProjectCode,
+            projectName: field.projectName,
             end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
             scheduledHoursDaily: eventField.dailyHours,
             title: field.name,
@@ -268,7 +268,7 @@ $(document).ready(function () {
       case 'Closed':
         return '#cc0000'
       default:
-        return '#ffffff'
+        return '#000000'
     }
   }
 
