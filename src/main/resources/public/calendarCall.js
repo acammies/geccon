@@ -16,8 +16,8 @@ $(document).ready(function () {
   // var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
 
   initialiseCalendar()
-  // returnData(returnCurrentCalendar(), urlTest)
-  returnData(returnCurrentCalendar(), urlLocalTest)
+  returnData(returnCurrentCalendar(), urlTest)
+  // returnData(returnCurrentCalendar(), urlLocalTest)
 
   loadResourceInformation(urlRoot + 'contact')
 
