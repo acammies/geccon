@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
-  var urlRoot = '/'
+  var urlRoot = 'http://localhost:8080/'
   // var urlRoot = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/'
   var urlTestEnd = 'calendar?resourceId=0036300000HnIenAAF&startDate=2017-06-01&endDate=2018-03-10%27'
   var urlTest = urlRoot + urlTestEnd
@@ -19,8 +19,8 @@ $(document).ready(function () {
   // initialiseCalendar frame and event mouseover references
   function initialiseCalendar () {
     $('#calendar').fullCalendar({
-      // now: moment(), // current date set to false date for testing purposes
-      now: '2017-06-05', // TODO change me to moment() as above
+      now: moment(), // current date set to false date for testing purposes
+      // now: '2017-06-05', // TODO change me to moment() as above
       editable: false, // draggable events disabled as read only
       // aspectRatio: 1.8,
       height: 'auto',
@@ -153,11 +153,12 @@ $(document).ready(function () {
       // console.log(data.data.assignments)
       // console.log(data.data.assignments[0])
       // console.log(data.data.assignments[1])
+      // For each Assignment:
       $.each(data.data.assignments, function (i, field) {
         // input resources/projects down the left hand column
         // console.log('Project is ' + field.projectName)
         calendarInput.fullCalendar('addResource', {
-          id: field.opaProjectCode,
+          id: field.projectName,
           // Change this in the future to use project id as name not necessarily unique
           title: field.projectName
         })
@@ -168,6 +169,8 @@ $(document).ready(function () {
         // var event = {}
         // console.log('assignment id is ' + field.assignmentID)
 
+        // For each event in assignment:
+        var countEvent = 0
         $.each(field.events, function (index, eventField) {
           // console.log('event start is: ' + eventField.startDate + ', event days is: ' + eventField.days + ', event daily hours is: ' + eventField.dailyHours)
           var formattedStart = moment(eventField.startDate).format('YYYY-MM-DD')
@@ -176,8 +179,8 @@ $(document).ready(function () {
             start: formattedStart,
             assignmentEnd: field.endDate,
             scheduledHours: field.scheduledHours,
-            id: field.assignmentID,
-            resourceId: field.opaProjectCode,
+            id: field.assignmentID + ' ' + countEvent,
+            resourceId: field.projectName,
             projectName: field.projectName,
             end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
             scheduledHoursDaily: eventField.dailyHours,
@@ -187,6 +190,7 @@ $(document).ready(function () {
             location: field.deliveryLocation,
             color: getStatusColor(field.status)
           }
+          countEvent++
 
           calendarInput.fullCalendar('renderEvent', event, true)
         })
