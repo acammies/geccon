@@ -20,11 +20,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
-@SpringBootApplication
+@Configuration
+@ComponentScan(basePackages = "com.redhat")
+@Import({BeanConfig.class, WebConfig.class})
+//@EnableWebMvc
+@EnableAutoConfiguration
 public class SampleTomcatApplication extends SpringBootServletInitializer {
 
 	private static Log logger = LogFactory.getLog(SampleTomcatApplication.class);
