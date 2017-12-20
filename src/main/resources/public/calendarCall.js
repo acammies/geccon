@@ -2,7 +2,7 @@
 
 $(document).ready(function () {
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
- 
+
   var $modal = $('.modal')
 
   // var queryStartDate = '2017-06-01'
@@ -10,12 +10,10 @@ $(document).ready(function () {
   // var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
 
   initialiseCalendar()
-   if (currentId != 'NULL')
-	  {
-	
-	   updateEventsForNewResource(currentId, returnCurrentCalendar());
-	  }
-  //returnData(returnCurrentCalendar(), urlTest)
+  if (currentId !== 'NULL') {
+    updateEventsForNewResource(currentId, returnCurrentCalendar())
+  }
+  // returnData(returnCurrentCalendar(), urlTest)
   // returnData(returnCurrentCalendar(), urlLocalTest)
 
   loadResourceInformation(contactUrl)
@@ -103,7 +101,7 @@ $(document).ready(function () {
         // alert('Coordinates: ' + event.pageX + ',' + event.pageY)
         // alert('View: ' + view.name)
         $modal.on('show.bs.modal', function (e) {
-          var paragraphs = $(e.relatedTarget).data('paragraphs')
+          // var paragraphs = $(e.relatedTarget).data('paragraphs')
           $(this)
             .addClass('modal-scrollfix')
             .find('.modal-body').html('Assignment Name' + ': ' + data.title + '</br>' +
@@ -227,24 +225,9 @@ $(document).ready(function () {
 
           calendarInput.fullCalendar('renderEvent', event, true)
         })
-
-        // for length of working pattern,
-        // currentDate is startDate + i*2 days,
-        // dailyHours = returnHours from date
-        // var eventScheduledHours = 0
-        // var eventScheduledDate = moment()
-
-        // console.log('console.log = ' + i)
-
-        // end test
-        // var event = {
-        //   id: field.assignmentID,
-        //   resourceId: field.opaProjectCode,
-        //   start: moment(),
-        //   end: '2017-12-31',
-        //   title: field.name
-        // }
-        // calendarInput.fullCalendar('renderEvent', event, true)
+        var resourceName = data.data.assignments[0].resourceID
+        console.log(resourceName)
+        displayConsultantName(resourceName)
       })
     }).fail(function (jqXHR, textStatus, errorThrown) {
       alert('getJSON request failed!  ' + textStatus)
@@ -291,6 +274,10 @@ $(document).ready(function () {
       calendarInput.fullCalendar('removeResource', projects[i].id)
     // I spent quite a while figuring out that for loop lines are separated by comma and not semi-colon.
     }
+  }
+
+  function displayConsultantName (contactName) {
+    document.getElementById('consultantName').innerHTML = 'You are viewing the Calendar of: ' + contactName
   }
 
   function getStatusColor (eventStatus) {
@@ -351,15 +338,12 @@ $(document).ready(function () {
   })
 
   linkClicked = function (index) {
-	  
 	  window.location.replace(calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id);
     // returns the currently selected contractor and uses their resource id to search for all projects
-	  if (currentId == 'NULL')
-	  {
-		
-		  	currentId = $('#resourceListBox li').get(index - 1).id // get index -1 is needed as the searchbar in the dropdown-menu counts as an indexed item but not in a list
-	  }
-    
+    if (currentId === 'NULL') {
+      currentId = $('#resourceListBox li').get(index - 1).id // get index -1 is needed as the searchbar in the dropdown-menu counts as an indexed item but not in a list
+    }
+
     console.log(currentId)
     clearEvents(returnCurrentCalendar())
     clearProjects(returnCurrentCalendar())
