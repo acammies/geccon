@@ -10,6 +10,7 @@
 	</parent>
 	<artifactId>consultant-calendar</artifactId>
 	<groupId>com.redhat.ukiservices.consulting</groupId>
+	<packaging>war</packaging>
 	<name>Spring Boot Tomcat Sample</name>
 	<description>Spring Boot Tomcat Sample</description>
 	<version>1</version>
@@ -51,4 +52,22 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+        <profile>
+            <id>openshift</id>
+            <build>
+                <finalName>travel</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.1.1</version>
+                        <configuration>
+                            <outputDirectory>webapps</outputDirectory>
+                            <warName>ROOT</warName>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

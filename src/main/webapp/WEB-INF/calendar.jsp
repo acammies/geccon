@@ -35,5 +35,5 @@
 	  var currentId = '${resourceID}'
 	  var calendarRedirectUrl = '${calendarUrl}'
   </script>
-    <%@include  file="/RedHatGeccon.html" %>
+    <%@include  file="RedHatGeccon.html" %>
     </body>
