@@ -339,15 +339,7 @@ $(document).ready(function () {
 
   linkClicked = function (index) {
 	  window.location.replace(calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id);
-    // returns the currently selected contractor and uses their resource id to search for all projects
-    if (currentId === 'NULL') {
-      currentId = $('#resourceListBox li').get(index - 1).id // get index -1 is needed as the searchbar in the dropdown-menu counts as an indexed item but not in a list
-    }
-
-    console.log(currentId)
-    clearEvents(returnCurrentCalendar())
-    clearProjects(returnCurrentCalendar())
-    updateEventsForNewResource(currentId, returnCurrentCalendar())
+   
   }
 
   $('.pop').popover({
