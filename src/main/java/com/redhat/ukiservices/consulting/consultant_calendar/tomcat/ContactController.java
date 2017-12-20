@@ -6,7 +6,9 @@ import javax.annotation.Generated;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,12 +39,23 @@ public class ContactController {
 		return result;
 
 	}
+	
+	@RequestMapping(value = "/contact/{region_name}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	public String getContacts(@PathVariable("region_name") String regionName) {
+	
+		final String uri = sfRootAPI  + sfContact + "?regionName=" + regionName ;
 
-	@RequestMapping(value = "/calendar", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+		RestTemplate restTemplate = new RestTemplate();
+		String result = restTemplate.getForObject(uri, String.class);
+
+		return result;
+
+	}
+
+	@RequestMapping(value = "/calendarAPI", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public String getCalendar(@RequestParam(value = "resourceId", required = false) final String resourceID,
 			@RequestParam(value = "startDate", required = false) final String startDate,
 			@RequestParam(value = "endDate", required = false) final String endDate) {
-		System.out.println("HERE");
 		String uri = sfRootAPI + sfCalendar + "?";
 		if (resourceID != null)
 			uri += "resourceId=" + resourceID + "&";

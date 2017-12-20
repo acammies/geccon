@@ -2,13 +2,7 @@
 
 $(document).ready(function () {
   // var urlNewerTestData = 'http://localhost:8080/calendar?resourceId=0036300000BzLSVAA3&startDate=01-01-2000&endDate=01-01-2020%27'
-  var urlRoot = '/'
-  var urlLocalRoot = 'http://localhost:8090/'
-  // var urlRoot = 'http://sf-api-route-ajb-sf-api.int.open.paas.redhat.com/'
-  var urlTestEnd = 'calendar?resourceId=0036300000HnIenAAF'
-  var urlTest = urlRoot + urlTestEnd
-  var urlLocalTest = urlLocalRoot + urlTestEnd
-  var urlResourceSearch = 'calendar?resourceId='
+ 
   var $modal = $('.modal')
 
   // var queryStartDate = '2017-06-01'
@@ -16,10 +10,15 @@ $(document).ready(function () {
   // var urlDateToQuery = '&startDate=' + queryStartDate + '&endDate=' + queryEndDate
 
   initialiseCalendar()
-  returnData(returnCurrentCalendar(), urlTest)
+   if (currentId != 'NULL')
+	  {
+	
+	   updateEventsForNewResource(currentId, returnCurrentCalendar());
+	  }
+  //returnData(returnCurrentCalendar(), urlTest)
   // returnData(returnCurrentCalendar(), urlLocalTest)
 
-  loadResourceInformation(urlRoot + 'contact')
+  loadResourceInformation(contactUrl)
 
   // initialiseCalendar frame and event mouseover references
   function initialiseCalendar () {
@@ -352,8 +351,15 @@ $(document).ready(function () {
   })
 
   linkClicked = function (index) {
+	  
+	  window.location.replace(calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id);
     // returns the currently selected contractor and uses their resource id to search for all projects
-    var currentId = $('#resourceListBox li').get(index - 1).id // get index -1 is needed as the searchbar in the dropdown-menu counts as an indexed item but not in a list
+	  if (currentId == 'NULL')
+	  {
+		
+		  	currentId = $('#resourceListBox li').get(index - 1).id // get index -1 is needed as the searchbar in the dropdown-menu counts as an indexed item but not in a list
+	  }
+    
     console.log(currentId)
     clearEvents(returnCurrentCalendar())
     clearProjects(returnCurrentCalendar())
