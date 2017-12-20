@@ -1,12 +1,7 @@
 package com.redhat.ukiservices.consulting.consultant_calendar.tomcat;
 
-import java.util.Optional;
-
-import javax.annotation.Generated;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -16,25 +16,15 @@
 
 package com.redhat.ukiservices.consulting.consultant_calendar.tomcat;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan
+@SpringBootApplication
 public class SampleTomcatApplication extends SpringBootServletInitializer {
 
 	private static Log logger = LogFactory.getLog(SampleTomcatApplication.class);
@@ -55,20 +45,7 @@ public class SampleTomcatApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(SampleTomcatApplication.class);
     }
-	
-	@Bean
-    public WebMvcConfigurerAdapter forwardToIndex() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addViewControllers(ViewControllerRegistry registry) {
-                // forward requests to /admin and /user to their index.html
-                registry.addViewController("/").setViewName(
-                        "forward:/RedHatGeccon.html");
-               
-               
-            }
-        };
-    }
+	/*
 
 	@Bean
 	protected ServletContextListener listener() {
@@ -84,5 +61,6 @@ public class SampleTomcatApplication extends SpringBootServletInitializer {
 			}
 		};
 	}
+	*/
 
 }
