@@ -231,7 +231,7 @@ $(document).ready(function () {
         displayConsultantName(resourceName)
       })
     }).fail(function (jqXHR, textStatus, errorThrown) {
-      alert('getJSON request failed!  ' + textStatus)
+      alert('Error finding consultant. Please try refreshing or returning to /calendar/contact.' + textStatus)
     })
   }
 
@@ -342,6 +342,13 @@ $(document).ready(function () {
   $('#resourceNameList').click(function () {
     setTimeout(function () { $('#myInput').focus() }, 0)
   })
+
+  $('#calendarDownloadButton').click(function () {
+    // place download link/text here. Mostly serverside but errorhandling done here.
+    window.location.replace('/calendarICS' + '?resourceId=' + currentId)
+  })
+
+
 
   linkClicked = function (index) {
     // console.log('Redirect url is' + calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id)
