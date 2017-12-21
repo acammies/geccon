@@ -34,6 +34,19 @@
 	  var urlResourceSearch = 'calendarAPI?resourceId='
 	  var currentId = '${resourceID}'
 	  var calendarRedirectUrl = '${calendarUrl}'
+
+		  window.addEventListener('keydown', function (e) {
+	            // go to the right
+	            if (e.keyCode == 39) {
+	            	$(".fc-next-button").click();
+	            }
+	            // go to the left
+	            if (e.keyCode == 37) {
+	            	$(".fc-prev-button").click();
+	            
+	            }
+	        });
+      
   </script>
     <%@include  file="RedHatGeccon.html" %>
     </body>
