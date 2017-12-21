@@ -48,7 +48,7 @@ public class ContactController {
 	}
 
 	@RequestMapping(value = "/calendarAPI", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public String getCalendar(@RequestParam(value = "resourceId", required = false) final String resourceID,
+	public String getCalendar(@RequestParam(value = "resourceId", required = true) final String resourceID,
 			@RequestParam(value = "startDate", required = false) final String startDate,
 			@RequestParam(value = "endDate", required = false) final String endDate) {
 		String uri = sfRootAPI + sfCalendar + "?";
