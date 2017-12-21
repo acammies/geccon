@@ -339,7 +339,9 @@ $(document).ready(function () {
     })
   })
 
-
+  $('#resourceNameList').click(function () {
+    setTimeout(function () { $('#myInput').focus() }, 0)
+  })
 
   linkClicked = function (index) {
     // console.log('Redirect url is' + calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id)
