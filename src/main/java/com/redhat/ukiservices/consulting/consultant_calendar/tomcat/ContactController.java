@@ -34,7 +34,7 @@ public class ContactController {
 	@Value("${sf-api.calendar.url}")
 	private String sfCalendar;
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+	SimpleDateFormat sdf = new SimpleDateFormat("'TZID=Europe/London:'yyyyMMdd'T'HHmmss");
 	
 	SimpleDateFormat sdfIN = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -62,7 +62,7 @@ public class ContactController {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.setDateFormat(sdfIN);
-		String dateCreated =   sdf.format(new Date() ) + "Z\n";
+		String dateCreated =   sdf.format(new Date() ) + "\n";
 		Boolean found = false;
 		StringBuilder sb = new StringBuilder();
 		
@@ -93,28 +93,32 @@ public class ContactController {
 				found = true;
 				int id = 0;
 				String assignmentID = assignment.getProjectID().substring(0, assignment.getProjectID().length() -3);
-				String description = "DESCRIPTION;ENCODING=QUOTED-PRINTABLE:Project - " + assignment.getProjectName() +
-								  "=0D=0AOPA Project Code - " + assignment.getOpaProjectCode() +
-								  "=0D=0AOPA Task Number - " + assignment.getTaskNo() +
-								  "=0D=0AOSales Force Link - " + assignment.getUrl() + "\n";
+				String description = "DESCRIPTION:Project - " + assignment.getProjectName() +
+								  "\\nOPA Project Code - " + (assignment.getOpaProjectCode() == null ? "TBC" : assignment.getOpaProjectCode()) +
+								  "\\nOPA Task Number - " + (assignment.getTaskNo() == null ? "TBC" : assignment.getTaskNo())+
+								  "\\nSales Force Link - " + assignment.getUrl() + "\n";
+			
 				for (CalendarEvent event :  assignment.getEvents())
 			    {	
 					java.util.Calendar cal = java.util.Calendar.getInstance();
 					cal.setTime(event.getStartDate());
 					cal.set(java.util.Calendar.HOUR_OF_DAY, 9);
 					sb.append("BEGIN:VEVENT\n" );
-					sb.append("DTSTART:" + sdf.format(cal.getTime()) + "Z\n");
+					sb.append("DTSTART;" + sdf.format(cal.getTime()) + "\n");
 
 					if (event.getDays() > 1)
 					{
 						sb.append("RRULE:FREQ=DAILY;COUNT=" + event.getDays() + "\n");
 					}
 					cal.add(java.util.Calendar.MINUTE, (int)(60 * event.getDailyHours()));
-					sb.append("DTEND:" + sdf.format(cal.getTime()) + "Z\n");
-					sb.append("DTSTAMP:" +dateCreated);
-					sb.append("LOCATION:" +assignment.getDeliveryLocation() + "\n");
+					sb.append("DTEND;" + sdf.format(cal.getTime()) + "\n");
+					sb.append("DTSTAMP;" +dateCreated);
+					if (assignment.getDeliveryLocation() != null )
+					{
+						sb.append("LOCATION:" +assignment.getDeliveryLocation() + "\n");
+					}
 					sb.append("UID:" + assignmentID + id + "\n");
-					sb.append("CREATED:" +dateCreated);
+					sb.append("CREATED;" +dateCreated);
 					sb.append(description);
 					sb.append("LAST-MODIFIED:" +dateCreated);
 					sb.append("SEQUENCE:0\n");
