@@ -13,7 +13,7 @@
       <!-- Fullcalendar css stylesheets -->
       <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.css' rel='stylesheet' />
     	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-    	<link href='/scheduler.min.css' rel='stylesheet' />
+    	<link href='/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet' />
       <!-- Google API fonts -->
       <link href="https://fonts.googleapis.com/icon?family=Overpass" rel="stylesheet"/>
       <!-- RedHat css style guide -->

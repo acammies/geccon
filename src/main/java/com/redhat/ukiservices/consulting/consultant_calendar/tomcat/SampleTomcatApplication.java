@@ -16,58 +16,22 @@
 
 package com.redhat.ukiservices.consulting.consultant_calendar.tomcat;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 
-@Configuration
+@SpringBootApplication
 @ComponentScan(basePackages = "com.redhat")
-@Import({BeanConfig.class, WebConfig.class})
-//@EnableWebMvc
-@EnableAutoConfiguration
-public class SampleTomcatApplication extends SpringBootServletInitializer {
+@PropertySource("classpath:application.properties")
+@Configuration
+public class SampleTomcatApplication  {
 
-	private static Log logger = LogFactory.getLog(SampleTomcatApplication.class);
-	
-	@Value("${sf-api.root.url}")
-	private String sfRootAPI;
-	
-	@Value("${sf-api.contact.url}")
-	private String sfContact;
-	
-	@Value("${sf-api.calendar.url}")
-	private String sfCalendar;
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(SampleTomcatApplication.class, args);
 	}
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SampleTomcatApplication.class);
-    }
-	/*
-
-	@Bean
-	protected ServletContextListener listener() {
-		return new ServletContextListener() {
-			@Override
-			public void contextInitialized(ServletContextEvent sce) {
-				logger.info("ServletContext initialized");
-			}
-
-			@Override
-			public void contextDestroyed(ServletContextEvent sce) {
-				logger.info("ServletContext destroyed");
-			}
-		};
-	}
-	*/
+	
 
 }
