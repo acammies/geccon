@@ -156,6 +156,10 @@ body {
 .legend .unassigned { background-color: #000000; }
 .legend .schedule { border-color: #ff0000; }
 
+.iconAndName { list-style: none; }
+.iconAndName li { float: right; margin-right: 15px; }
+.iconAndName span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+
 
 .triangle-bottomright {
 	width: 0;

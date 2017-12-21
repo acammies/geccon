@@ -39,7 +39,7 @@ $(document).ready(function () {
       views: {
         // some views have been defined below but not entered as choices above to save space and to avoid overcomplicating.
         timelineDay: {
-          buttonText: 'Today',
+          buttonText: 'Day',
           slotDuration: '03:00'
         },
         timelineFiveDays: {
@@ -140,7 +140,7 @@ $(document).ready(function () {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
         // end date needs 1 day subtracting as through moment date formats it would otherwise be plotted to midnight of the end date and not render.
         var tooltip = '<div class="tooltiptopicevent">' +
-          'Click on an event for more information' + '</br>' +
+          'Click for more information' + '</br>' +
           'Assignment Name' + ': ' + data.title + '</br>' +
           // 'Assignment id = ' + data.id + '</br>' +
           // 'Assignment Status is: ' + data.status + '</br>' +
