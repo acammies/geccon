@@ -115,7 +115,7 @@ $(document).ready(function () {
             'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
             'Project Name is: ' + data.projectName + '</br>' +
             'Project Id is: ' + data.resourceId + '</br>' +
-            'Project Region: ' + data.projectLocation + '</br>')
+            'Project Location: ' + data.projectLocation + '</br>')
             // .html('loading...')
             // .load('https://baconipsum.com/api/?type=meat-and-filler&paras=' + paragraphs, function () {
             //   // Use Bootstrap's built-in function to fix scrolling (to no avail)
@@ -140,18 +140,19 @@ $(document).ready(function () {
         // event mouseover to display tooltip of further event information. still need to change it away from a moving tooltip to a static one TODO here
         // end date needs 1 day subtracting as through moment date formats it would otherwise be plotted to midnight of the end date and not render.
         var tooltip = '<div class="tooltiptopicevent">' +
+          'Click on an event for more information' + '</br>' +
           'Assignment Name' + ': ' + data.title + '</br>' +
-          'Assignment id = ' + data.id + '</br>' +
-          'Assignment Status is: ' + data.status + '</br>' +
+          // 'Assignment id = ' + data.id + '</br>' +
+          // 'Assignment Status is: ' + data.status + '</br>' +
           'Event Start Date' + ': ' + data.start.format('YYYY-MM-DD') + '</br>' +
           'Event End Date' + ': ' + data.end.subtract(1, 'days').format('YYYY-MM-DD') + '</br>' +
           'Daily Scheduled Hours: ' + data.scheduledHoursDaily + '</br>' +
-          'Assignment Start Date' + ': ' + data.assignmentStart + '</br>' +
-          'Assignment End Date' + ': ' + data.assignmentEnd + '</br>' +
+          // 'Assignment Start Date' + ': ' + data.assignmentStart + '</br>' +
+          // 'Assignment End Date' + ': ' + data.assignmentEnd + '</br>' +
           'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
-          'Project Name is: ' + data.projectName + '</br>' +
-          'Project Id is: ' + data.resourceId + '</br>' +
-          'Project Region: ' + data.projectLocation + '</br>' +
+          // 'Project Name is: ' + data.projectName + '</br>' +
+          // 'Project Id is: ' + data.resourceId + '</br>' +
+          'Project Location: ' + data.projectLocation + '</br>' +
           ' </div>'
         // 'Delivery Location: ' + data.deliveryLocation + '</br>' +;
         $('body').append(tooltip)
@@ -204,7 +205,7 @@ $(document).ready(function () {
         $.each(field.events, function (index, eventField) {
           // console.log('event start is: ' + eventField.startDate + ', event days is: ' + eventField.days + ', event daily hours is: ' + eventField.dailyHours)
           var formattedStart = moment(eventField.startDate).format('YYYY-MM-DD')
-          var formattedAssignmentEnd = moment(field.endDate).format('YYYY-MM-DD')
+          // var formattedAssignmentEnd = moment(field.endDate).format('YYYY-MM-DD')
           var event = {
             start: formattedStart,
             end: moment(formattedStart).add(eventField.days, 'days').format('YYYY-MM-DD'),
@@ -225,8 +226,8 @@ $(document).ready(function () {
 
           calendarInput.fullCalendar('renderEvent', event, true)
         })
-        var resourceName = data.data.assignments[0].resourceID
-        console.log(resourceName)
+        var resourceName = data.data.resourceName
+        console.log('Resource name is ' + resourceName)
         displayConsultantName(resourceName)
       })
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -317,6 +318,7 @@ $(document).ready(function () {
         // $("#resourceNameList ul").append('<li>'+option.text+'</li>');
         // this sets the id of the list item to resourceID, may have to append a letter on the beginning for compatability
         $('#resourceNameList ul').append('<li onclick="linkClicked($(this).index())" id =' + field.id + '>' + '<a href="#">' + option + '</a>' + '</li>')
+        // console.log('field id appended is ' + field.id)
         // onclick="linkClicked($(this).index())" calls link clicked function, may change this in future and probably should.
         // also need to make it so that id has a letter appended to the front
 
@@ -337,9 +339,11 @@ $(document).ready(function () {
     })
   })
 
+
+
   linkClicked = function (index) {
-	  window.location.replace(calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id);
-   
+    // console.log('Redirect url is' + calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id)
+    window.location.replace(calendarRedirectUrl + $('#resourceListBox li').get(index - 1).id)
   }
 
   $('.pop').popover({
