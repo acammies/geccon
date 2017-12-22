@@ -56,9 +56,7 @@ public class ContactController {
 	public ResponseEntity<String> getCalendarICS(
 			@RequestParam(value = "resourceId", required = true) final String resourceID) {
 
-		String uri = sfRootAPI + sfCalendar + "?resourceId=" + resourceID;
-
-		System.err.println("Here1");
+		String uri = sfRootAPI + sfCalendar + "/" + resourceID;
 
 		RestTemplate restTemplate = new RestTemplate();
 		String result = restTemplate.getForObject(uri, String.class);
@@ -156,18 +154,8 @@ public class ContactController {
 	}
 
 	@RequestMapping(value = "/calendarAPI", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-	public String getCalendar(@RequestParam(value = "resourceId", required = true) final String resourceID,
-			@RequestParam(value = "startDate", required = false) final String startDate,
-			@RequestParam(value = "endDate", required = false) final String endDate) {
-		String uri = sfRootAPI + sfCalendar + "?";
-		if (resourceID != null)
-			uri += "resourceId=" + resourceID + "&";
-
-		if (startDate != null)
-			uri += "startDate=" + startDate + "&";
-
-		if (endDate != null)
-			uri += "endDate=" + endDate;
+	public String getCalendar(@RequestParam(value = "resourceId", required = true) final String resourceID) {
+		String uri = sfRootAPI + sfCalendar + "/" + resourceID;
 
 		RestTemplate restTemplate = new RestTemplate();
 		String result = restTemplate.getForObject(uri, String.class);
