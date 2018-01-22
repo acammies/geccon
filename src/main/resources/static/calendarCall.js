@@ -114,7 +114,8 @@ $(document).ready(function () {
             'Assignment End Date' + ': ' + data.assignmentEnd + '</br>' +
             'Total Assignment Scheduled Hours: ' + data.scheduledHours + '</br>' +
             'Project Name is: ' + data.projectName + '</br>' +
-            'Project Id is: ' + data.resourceId + '</br>' +
+            'OPA Project Code is: ' + data.projectCode + '</br>' +
+            'OPA Task No is: ' + data.taskNo + '</br>' +
             'Project Location: ' + data.projectLocation + '</br>')
             // .html('loading...')
             // .load('https://baconipsum.com/api/?type=meat-and-filler&paras=' + paragraphs, function () {
@@ -219,6 +220,7 @@ $(document).ready(function () {
             title: field.name,
             status: field.status,
             projectCode: field.opaProjectCode,
+            taskNo:field.taskNo,
             location: field.deliveryLocation,
             color: getStatusColor(field.status)
           }
